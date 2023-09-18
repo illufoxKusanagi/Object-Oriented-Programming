@@ -222,12 +222,17 @@ public class TransaksiBank extends javax.swing.JFrame {
             return;
         }
         boolean ambilUang = nasabah.getTabungan().ambilUang(Jumlah);
-        if (ambilUang) {
-            saldo.setText(Integer.toString(Saldo - Jumlah)); // Mengurangkan saldo setelah pengambilan
-            jumlah.setText(null);
-            tampilan();
+        if (Saldo < Jumlah) {
+            JOptionPane.showMessageDialog(null, "Saldo tidak mencukupi");
+            return;
         } else {
-            JOptionPane.showMessageDialog(null, "Gagal mengambil uang.");
+            if (ambilUang) {
+                saldo.setText(Integer.toString(Saldo - Jumlah)); // Mengurangkan saldo setelah pengambilan
+                jumlah.setText(null);
+                tampilan();
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal mengambil uang.");
+            }
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -264,8 +269,8 @@ public class TransaksiBank extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         bankform.tampilData();
         bankform.reset();
+        this.dispose();
         bankform.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

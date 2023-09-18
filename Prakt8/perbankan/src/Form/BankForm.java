@@ -10,6 +10,7 @@ import Perbankan.Nasabah;
 import Perbankan.Bank;
 import Perbankan.Tabungan;
 import Form.TransaksiBank;
+
 /**
  *
  * @author ASUS
@@ -30,13 +31,12 @@ public class BankForm extends javax.swing.JFrame {
         model = new DefaultTableModel (data,kolom);
         tabel.setModel(model);*/
     }
- 
 
     public void tampilData() {
         int jumlahNasabah = bank.getJumlahNasabah();
         int noUrut = 1;
         DefaultTableModel model = new DefaultTableModel();
-         model.addColumn("No.");
+        model.addColumn("No.");
         model.addColumn("Nama Awal");
         model.addColumn("Nama Akhir");
         model.addColumn("Saldo");
@@ -70,7 +70,8 @@ public class BankForm extends javax.swing.JFrame {
         int indexNasabah = bank.getIndexNasabah(namaAwal, namaAkhir);
         return bank.getNasabah(indexNasabah);
     }
-    public int getselectedRow(){
+
+    public int getselectedRow() {
         return tabel.getSelectedRow();
     }
 
@@ -128,6 +129,18 @@ public class BankForm extends javax.swing.JFrame {
         Namaawal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NamaawalActionPerformed(evt);
+            }
+        });
+
+        Namaakhir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NamaakhirActionPerformed(evt);
+            }
+        });
+
+        saldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saldoActionPerformed(evt);
             }
         });
 
@@ -197,6 +210,11 @@ public class BankForm extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("CorpidOffice", 0, 12)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Keluar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -299,7 +317,7 @@ public class BankForm extends javax.swing.JFrame {
         if (NamaAwal.trim().equals("") || NamaAkhir.trim().equals("") || Saldo == 0) {
             JOptionPane.showMessageDialog(null, "Data yang Anda masukkan belum lengkap, silahkan ulangi lagi.");
         } else {
-            if (jButton1.getText()=="simpan") {
+            if (jButton1.getText() == "simpan") {
                 Nasabah nasabah = pilihNasabah();
                 nasabah.setNamaAwal(Namaawal.getText());
                 nasabah.setNamaAkhir(Namaakhir.getText());
@@ -308,7 +326,7 @@ public class BankForm extends javax.swing.JFrame {
                 bank.tambahNasabah(NamaAwal, NamaAkhir);
                 bank.getNasabah(jumlahNasabah).setTabungan(new Tabungan(Saldo));
             }
-            //rowIndex++;
+            rowIndex++;
             //model.addRow(new Object[]{rowIndex,norek, NamaAwal, NamaAkhir, Saldo});
             reset();
             tampilData();
@@ -320,17 +338,17 @@ public class BankForm extends javax.swing.JFrame {
                 || Namaakhir.getText().equals("")
                 || saldo.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Silahkan pilih data yang ingin dihapus!", "Validasi Data", JOptionPane.INFORMATION_MESSAGE);
-        } else {      
+        } else {
             int jawab = JOptionPane.showConfirmDialog(null, "Data ini akan dihapus ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
             if (jawab == 0) {
                 Nasabah nasabah = pilihNasabah();
                 nasabah.setNamaAwal("");
                 nasabah.setNamaAkhir("");
-                
+
                 reset();
                 tampilData();
             }
-            
+
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -352,22 +370,38 @@ public class BankForm extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelMouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-    
-     int selectedRow = getselectedRow();
-        String namaAwal = tabel.getValueAt(selectedRow, 1).toString();
-        String namaAkhir = tabel.getValueAt(selectedRow, 2).toString();
-        int indexNasabah = bank.getIndexNasabah(namaAwal, namaAkhir);   
-    TransaksiBank frame2 = new TransaksiBank(indexNasabah,bank,this); // Gantilah "JFrame2" dengan nama JFrame kedua Anda
-    
-    frame2.setVisible(true); // Menutup JFrame pertama jika diperlukan
-    this.setVisible(false);
-    
+
+        int selectedRow = getselectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Pilih nasabah terlebih dahulu");
+            return;
+        }
+            String namaAwal = tabel.getValueAt(selectedRow, 1).toString();
+            String namaAkhir = tabel.getValueAt(selectedRow, 2).toString();
+            int indexNasabah = bank.getIndexNasabah(namaAwal, namaAkhir);
+            TransaksiBank frame2 = new TransaksiBank(indexNasabah, bank, this); // Gantilah "JFrame2" dengan nama JFrame kedua Anda
+
+            frame2.setVisible(true); // Menutup JFrame pertama jika diperlukan
+            this.setVisible(false);
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void NamaawalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NamaawalActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_NamaawalActionPerformed
+
+    private void NamaakhirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NamaakhirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NamaakhirActionPerformed
+
+    private void saldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saldoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saldoActionPerformed
+    
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
