@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Perbankan;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

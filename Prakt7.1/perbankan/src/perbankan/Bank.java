@@ -17,8 +17,8 @@ public class Bank {
         return jumlahNasabah;
     }
     
-    public Nasabah getNasabah(int indeks){
-        return nasabah[indeks];
+    public Nasabah getNasabah(int index){
+        return nasabah[index];
     }
     
     public int getIndexNasabah(String namaAwal, String namaAkhir) {
