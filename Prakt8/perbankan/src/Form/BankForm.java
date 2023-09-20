@@ -26,13 +26,6 @@ public class BankForm extends javax.swing.JFrame {
         initComponents();
         bank = new Bank();
         tampilData();
-        /*
-         * rowIndex=1;
-         * Object kolom[]={"No","No.Rek","NamaAwal","NamaAkhir","Saldo"};
-         * Object data[][] = {{rowIndex,"35242424","Irham","Kafi","300000"}};
-         * model = new DefaultTableModel (data,kolom);
-         * tabel.setModel(model);
-         */
     }
 
     public void tampilData() {
@@ -301,7 +294,6 @@ public class BankForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4)
                         .addGap(18, 18, 18)
                         .addComponent(jButton6)
@@ -328,22 +320,32 @@ public class BankForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        int selectedRow = getselectedRow();
-        if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Pilih nasabah terlebih dahulu");
-            return;
-        }
-        String namaAwal = tabel.getValueAt(selectedRow, 1).toString();
-        String namaAkhir = tabel.getValueAt(selectedRow, 2).toString();
-        int indexNasabah = bank.getIndexNasabah(namaAwal, namaAkhir);
-        TarikTunai setor = new TarikTunai(indexNasabah, bank, this); // Gantilah "JFrame2" dengan nama JFrame
-                                                                            // kedua Anda
+    private void tabelMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tabelMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tabel.getModel();
+        int selectedRow = tabel.getSelectedRow();
+        Nasabah nasabah = pilihNasabah();
+        Namaawal.setText(nasabah.getNamaAwal());
+        Namaakhir.setText(nasabah.getNamaAkhir());
+        int Saldo = nasabah.getTabungan().getSaldo();
+        saldo.setText(Integer.toString(Saldo));
+        saldo.setEditable(true);
+        jButton1.setText("simpan");
+    }// GEN-LAST:event_tabelMouseClicked
 
-        setor.setVisible(true); // Menutup JFrame pertama jika diperlukan
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    
+    private void NamaawalActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_NamaawalActionPerformed
+        // TODO add your handling code here:
 
+    }// GEN-LAST:event_NamaawalActionPerformed
+
+    private void NamaakhirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_NamaakhirActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_NamaakhirActionPerformed
+
+    private void saldoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_saldoActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_saldoActionPerformed
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         int jumlahNasabah = bank.getJumlahNasabah();
         String NamaAwal = Namaawal.getText();
@@ -353,7 +355,7 @@ public class BankForm extends javax.swing.JFrame {
             Saldo = Integer.parseInt(saldo.getText());
         } catch (NumberFormatException e) {
             // Penanganan jika input Saldo bukan angka
-            JOptionPane.showMessageDialog(null, "Saldo harus berupa angka.");
+            JOptionPane.showMessageDialog(null, "Data tidak valid");
             return;
         }
 
@@ -402,18 +404,7 @@ public class BankForm extends javax.swing.JFrame {
         reset();
     }// GEN-LAST:event_jButton3ActionPerformed
 
-    private void tabelMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tabelMouseClicked
-        DefaultTableModel model = (DefaultTableModel) tabel.getModel();
-        int selectedRow = tabel.getSelectedRow();
-        Nasabah nasabah = pilihNasabah();
-        Namaawal.setText(nasabah.getNamaAwal());
-        Namaakhir.setText(nasabah.getNamaAkhir());
-        int Saldo = nasabah.getTabungan().getSaldo();
-        saldo.setText(Integer.toString(Saldo));
-        saldo.setEditable(true);
-        jButton1.setText("simpan");
-    }// GEN-LAST:event_tabelMouseClicked
-
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
 
         int selectedRow = getselectedRow();
@@ -424,7 +415,7 @@ public class BankForm extends javax.swing.JFrame {
         String namaAwal = tabel.getValueAt(selectedRow, 1).toString();
         String namaAkhir = tabel.getValueAt(selectedRow, 2).toString();
         int indexNasabah = bank.getIndexNasabah(namaAwal, namaAkhir);
-        Setor setor = new Setor(indexNasabah, bank, this); // Gantilah "JFrame2" dengan nama JFrame
+        SetorTunai setor = new SetorTunai(indexNasabah, bank, this); // Gantilah "JFrame2" dengan nama JFrame
                                                                             // kedua Anda
 
         setor.setVisible(true); // Menutup JFrame pertama jika diperlukan
@@ -432,22 +423,25 @@ public class BankForm extends javax.swing.JFrame {
 
     }// GEN-LAST:event_jButton4ActionPerformed
 
-    private void NamaawalActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_NamaawalActionPerformed
-        // TODO add your handling code here:
-
-    }// GEN-LAST:event_NamaawalActionPerformed
-
-    private void NamaakhirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_NamaakhirActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_NamaakhirActionPerformed
-
-    private void saldoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_saldoActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_saldoActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton5ActionPerformed
         this.dispose();
     }// GEN-LAST:event_jButton5ActionPerformed
+    
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        int selectedRow = getselectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Pilih nasabah terlebih dahulu");
+            return;
+        }
+        String namaAwal = tabel.getValueAt(selectedRow, 1).toString();
+        String namaAkhir = tabel.getValueAt(selectedRow, 2).toString();
+        int indexNasabah = bank.getIndexNasabah(namaAwal, namaAkhir);
+        TarikTunai setor = new TarikTunai(indexNasabah, bank, this);
+        setor.setVisible(true); // Menutup JFrame pertama jika diperlukan
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    
 
     /**
      * @param args the command line arguments

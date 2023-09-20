@@ -94,7 +94,7 @@ public TarikTunai(int selectedRow, Bank bank, BankForm bankform) {
         });
 
         titleApk.setFont(new java.awt.Font("CorpidOffice", 1, 36)); // NOI18N
-        titleApk.setText("Transaksi");
+        titleApk.setText("Tarik Tunai");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -149,9 +149,7 @@ public TarikTunai(int selectedRow, Bank bank, BankForm bankform) {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 17, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
