@@ -294,6 +294,7 @@ public class BankForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4)
                         .addGap(18, 18, 18)
                         .addComponent(jButton6)
@@ -436,7 +437,8 @@ public class BankForm extends javax.swing.JFrame {
         String namaAwal = tabel.getValueAt(selectedRow, 1).toString();
         String namaAkhir = tabel.getValueAt(selectedRow, 2).toString();
         int indexNasabah = bank.getIndexNasabah(namaAwal, namaAkhir);
-        TarikTunai setor = new TarikTunai(indexNasabah, bank, this);
+        TarikTunai setor = new TarikTunai(indexNasabah, bank, this); // Gantilah "JFrame2" dengan nama JFrame
+                                                                            // kedua Anda
         setor.setVisible(true); // Menutup JFrame pertama jika diperlukan
         this.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
